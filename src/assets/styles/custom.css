@@ -1,0 +1,36 @@
+.soloStartHeadImage{
+  margin-top: 20px;
+  width: 80px;
+}
+
+.soloChallengeTitle{
+}
+
+.soloStartHead{
+  width: 100%;
+  margin: auto;
+ 
+}
+
+.soloRulesListItem{
+}
+
+.soloRulesListItem li{
+  font-size: 15px;
+}
+
+.soloStartHead span{
+  margin-top: 20px;
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+
+@media (max-width: 675px){
+  .soloStartHead{
+    margin: auto;
+    width: 100%;
+  }
+}
