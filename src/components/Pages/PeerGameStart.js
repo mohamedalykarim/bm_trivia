@@ -19,29 +19,29 @@ const styles = {
     fullBackground : {
       background: `url(${bgImage}) center center no-repeat`,
       backgroundSize : "cover", 
-      WebkitBackgroundSize : "cover",
-      MozBackgroundSize : "cover",
+      webkitBackgroundSize : "cover",
+      mozBackgroundSize : "cover",
       minHeight: "100vh"
     }
   }
 
-function SoloGameReact(props){
+function PeerGameStart(props){
 
     return <Container style={styles.fullBackground}>
-    <Grid container spacing={3} > 
+    <Grid container spacing={1} > 
 
       {/* Page title */}
-      <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
-       <div className="soloStartHead" style={{width: "100%", }}>
-          <h1 >
+      <Grid className="textAlignCentered" sx={12} sm={12} md={12} lg={12} xl={12}>
+       <div className="soloStartHead">
+          <h1 style={{width: "100%", }}>
           <img src={trophyIcon} alt="trophyIcon" className="soloStartHeadImage"/>
-          &nbsp; <span className="soloChallengeTitle">SOLO CHALLENGE</span>
+          &nbsp; <span className="soloChallengeTitle">PEER CHALLENGE</span>
           </h1>
        </div> 
       </Grid>
 
       {/* Instructions */}
-      <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
        <div className="soloStartHead" >
           <img src={instructionsImg} alt="trophyIcon" className="soloStartHeadImage" style={{}}/>
 
@@ -57,7 +57,7 @@ function SoloGameReact(props){
       </Grid>
 
       {/* Game Rules */}
-      <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
        <div className="soloStartHead" >
           <img src={rulesImg} alt="trophyIcon" className="soloStartHeadImage" />
 
@@ -76,7 +76,7 @@ function SoloGameReact(props){
       </Grid>
 
 
-      <Grid className="textAlignCentered" xs={6} sm={6} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
          <Link to="/" >
             <button className="game-button red soloStartHead" >
                <h3>
@@ -86,7 +86,7 @@ function SoloGameReact(props){
          </Link>
       </Grid>
 
-      <Grid className="textAlignCentered" xs={6} sm={6} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
       <button className="game-button red soloStartHead" >
           <h3>
           &nbsp; <span className="soloChallengeTitle">Start Game</span>
@@ -104,4 +104,4 @@ function SoloGameReact(props){
 }
 
 
-export default SoloGameReact
+export default PeerGameStart

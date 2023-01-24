@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Pages/Home'
 import SoloGameStart from './components/Pages/SoloGameStart'
+import PeerGameStart from './components/Pages/PeerGameStart'
 
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 
@@ -21,7 +22,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 function App() {
   return (
         <Router>
-          <div className="App">
+          <div className="App" >
 
 
             <div className='App-header'>
@@ -50,6 +51,7 @@ function App() {
                  <Routes>
                   <Route exact path='/' element={< Home />}></Route>
                   <Route exact path='/Solo-Start' element={< SoloGameStart />}></Route>
+                  <Route exact path='/Peer-Start' element={< PeerGameStart />}></Route>
                 </Routes>
 
             </div>

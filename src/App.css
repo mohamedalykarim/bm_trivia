@@ -1,3 +1,8 @@
+.body{
+  background: "url(./assets/img/background.jpg) center center no-repeat";
+
+}
+
 .App {
   text-align: center;
 }
@@ -17,20 +22,6 @@ body, html {
   height: 100%;
 }
 
-.bg {
-  /* The image used */
-  background-image: url("./assets/img/background.jpg");
-  min-height: 100vh;
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .full-height-vh{
   min-height: 100vh;
   display: flex;
@@ -42,10 +33,6 @@ body, html {
 
 }
 
-.rec30{
-  width: 30px;
-  height: 30px;
-}
 
 
 @keyframes App-logo-spin {

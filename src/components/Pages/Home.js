@@ -19,17 +19,18 @@ import Box from '@mui/material/Box';
 import HomeIcon from '@mui/icons-material/Home';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarsIcon from '@mui/icons-material/Stars';
-import { MainTab } from "../HomeTabs/MainTab";
+import { MainTab, TopTen } from "../HomeTabs/MainTab";
 
 import bgImage from '../../assets/img/background.jpg'
+import { TopTenTab } from "../HomeTabs/TopTenTab";
 
 
 const styles = {
     fullBackground : {
       background: `url(${bgImage}) center center no-repeat`,
       backgroundSize : "cover", 
-      webkitBackgroundSize : "cover",
-      mozBackgroundSize : "cover",
+      WebkitBackgroundSize : "cover",
+      MozBackgroundSize : "cover",
       minHeight: "100vh"
     }
   }
@@ -82,7 +83,7 @@ function Home(props){
     return <Box sx={{ flexGrow: 1 }}>
     
         <UnauthenticatedTemplate >
-                <div class="full-height-vh" >
+                <div className="full-height-vh" >
                 <LoginToMicrosoft />
                 </div>
             </UnauthenticatedTemplate>
@@ -93,7 +94,7 @@ function Home(props){
                 <Grid container > 
                   <Grid 
                 xl={10} xloffset={1}
-                lg={8} lgOffset={2}
+                lg={10} lgOffset={1}
                 md={12} 
                 sm={12} 
                 xs={12}>
@@ -105,7 +106,6 @@ function Home(props){
                         value={value} 
                         onChange={handleChange} 
                         variant= "fullWidth"
-                        textColor="#ffffff"
                         TabIndicatorProps={{style: {background:'#ffffff', color: '#ffffff'}}}
                         aria-label="basic tabs example">
                         <Tab label="Main" icon={<HomeIcon />} {...a11yProps(0)} />
@@ -117,7 +117,7 @@ function Home(props){
                         <MainTab />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        Item Two
+                        <TopTenTab />
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         Item Three
