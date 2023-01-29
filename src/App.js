@@ -17,6 +17,23 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
+fetch(`/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia')/items`, {  
+  method: "POST",
+  headers: {             
+    "accept": "application/json;odata=verbose",
+    "content-type": "application/json;odata=verbose",
+  },
+  accept: 'application/json;odata=verbose',
+  body: JSON.stringify({ '__metadata': { 'type': 'SP.List' }, 'AllowContentTypes': true,
+  'BaseTemplate': 100, 'ContentTypesEnabled': true, 'Description': 'My list description', 'Title': 'Test from app' }
+ )
+})
+.then((result)=>{
+  console.log(result)
+})
+.then(console.log)
+.catch(console.log);
+
 
 
 function App() {

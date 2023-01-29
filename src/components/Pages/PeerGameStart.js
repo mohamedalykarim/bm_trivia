@@ -4,7 +4,7 @@ import '../../assets/styles/custom.css';
 import { Container } from "@mui/system";
 
 import bgImage from '../../assets/img/background.jpg'
-import trophyIcon from '../../assets/img/trophy-icon.webp'
+import score2Img from '../../assets/img/score2.png'
 import instructionsImg from '../../assets/img/instructions.png'
 import rulesImg from '../../assets/img/rules.png'
 
@@ -34,7 +34,7 @@ function PeerGameStart(props){
       <Grid className="textAlignCentered" sx={12} sm={12} md={12} lg={12} xl={12}>
        <div className="soloStartHead">
           <h1 style={{width: "100%", }}>
-          <img src={trophyIcon} alt="trophyIcon" className="soloStartHeadImage"/>
+          <img src={score2Img} alt="trophyIcon" className="soloStartHeadImage"/>
           &nbsp; <span className="soloChallengeTitle">PEER CHALLENGE</span>
           </h1>
        </div> 
