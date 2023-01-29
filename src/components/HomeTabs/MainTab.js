@@ -32,7 +32,7 @@ export  const MainTab = (props) => {
                             <img src={trophyIcon} alt="trophyIcon" className="soloStartHeadImage"/>
                             <br />
                             <br />
-                            <h3 > SOLO Challenge  </h3>
+                            <Typography variant="h3" > SOLO Challenge  </Typography>
                         </button>
                     </Link>
                     
@@ -49,7 +49,7 @@ export  const MainTab = (props) => {
                             <img src={score2Img} alt="trophyIcon" className="soloStartHeadImage"/>
                             <br />
                             <br />
-                            <h3 > PEER Challenge  </h3>
+                            <Typography variant="h3" > PEER Challenge  </Typography>
                         </button>
                     </Link>
 
@@ -71,9 +71,9 @@ export  const MainTab = (props) => {
                                     Your points:
                                 </Typography>
                                 <br />
-                                <h1 style={{  }}>
+                                <Typography variant="h1">
                                     78563 
-                                </h1>
+                                </Typography>
                                 points
                                 <br />
                             </Grid>

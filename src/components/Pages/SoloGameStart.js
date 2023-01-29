@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 
 import Grid from '@mui/material/Unstable_Grid2';
+import { Typography } from "@mui/material";
 
 
 const styles = {
@@ -33,10 +34,10 @@ function SoloGameReact(props){
       {/* Page title */}
       <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
        <div className="soloStartHead" style={{width: "100%", }}>
-          <h1 >
+          <Typography variant="h1" >
           <img src={trophyIcon} alt="trophyIcon" className="soloStartHeadImage"/>
           &nbsp; <span className="soloChallengeTitle">SOLO CHALLENGE</span>
-          </h1>
+          </Typography>
        </div> 
       </Grid>
 
@@ -45,13 +46,13 @@ function SoloGameReact(props){
        <div className="soloStartHead" >
           <img src={instructionsImg} alt="trophyIcon" className="soloStartHeadImage" style={{}}/>
 
-          <h1>
+          <Typography variant="h1" >
           &nbsp; Instructions
-          </h1>
+          </Typography>
 
-          <p>
+          <Typography variant="body1">
           Solo Challenge allows you to challenge Your self to move forward and win Coins and Power Ups along the way!
-          </p>
+          </Typography>
           <br />
        </div> 
       </Grid>
@@ -61,9 +62,9 @@ function SoloGameReact(props){
        <div className="soloStartHead" >
           <img src={rulesImg} alt="trophyIcon" className="soloStartHeadImage" />
 
-          <h1>
+          <Typography variant="h1">
           &nbsp; Game Rules
-          </h1>
+          </Typography>
 
          
           <ul className="soloRulesListItem">

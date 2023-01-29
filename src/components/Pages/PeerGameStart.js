@@ -13,14 +13,15 @@ import { Link } from "react-router-dom";
 
 
 import Grid from '@mui/material/Unstable_Grid2';
+import { Typography } from "@mui/material";
 
 
 const styles = {
     fullBackground : {
       background: `url(${bgImage}) center center no-repeat`,
       backgroundSize : "cover", 
-      webkitBackgroundSize : "cover",
-      mozBackgroundSize : "cover",
+      WebkitBackgroundSize : "cover",
+      MozBackgroundSize : "cover",
       minHeight: "100vh"
     }
   }
@@ -31,39 +32,39 @@ function PeerGameStart(props){
     <Grid container spacing={1} > 
 
       {/* Page title */}
-      <Grid className="textAlignCentered" sx={12} sm={12} md={12} lg={12} xl={12}>
+      <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
        <div className="soloStartHead">
-          <h1 style={{width: "100%", }}>
+          <Typography variant="h1" style={{width: "100%", }}>
           <img src={score2Img} alt="trophyIcon" className="soloStartHeadImage"/>
           &nbsp; <span className="soloChallengeTitle">PEER CHALLENGE</span>
-          </h1>
+          </Typography>
        </div> 
       </Grid>
 
       {/* Instructions */}
-      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
        <div className="soloStartHead" >
           <img src={instructionsImg} alt="trophyIcon" className="soloStartHeadImage" style={{}}/>
 
-          <h1>
+          <Typography variant="h1">
           &nbsp; Instructions
-          </h1>
+          </Typography>
 
-          <p>
+          <Typography variant="body1">
           Solo Challenge allows you to challenge Your self to move forward and win Coins and Power Ups along the way!
-          </p>
+          </Typography>
           <br />
        </div> 
       </Grid>
 
       {/* Game Rules */}
-      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
        <div className="soloStartHead" >
           <img src={rulesImg} alt="trophyIcon" className="soloStartHeadImage" />
 
-          <h1>
+          <Typography variant="h1">
           &nbsp; Game Rules
-          </h1>
+          </Typography>
 
          
           <ul className="soloRulesListItem">
@@ -76,21 +77,21 @@ function PeerGameStart(props){
       </Grid>
 
 
-      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
          <Link to="/" >
             <button className="game-button red soloStartHead" >
-               <h3>
+               <Typography variant="h3">
                &nbsp; <span className="soloChallengeTitle">Cancel</span>
-               </h3>
+               </Typography>
             </button> 
          </Link>
       </Grid>
 
-      <Grid className="textAlignCentered" sx={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
       <button className="game-button red soloStartHead" >
-          <h3>
+          <Typography variant="h3">
           &nbsp; <span className="soloChallengeTitle">Start Game</span>
-          </h3>
+          </Typography>
        </button> 
 
       </Grid>

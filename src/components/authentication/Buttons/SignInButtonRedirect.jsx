@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';
 
 
-
 /**
  * Renders a button which, when selected, will redirect the page to the login prompt
  */

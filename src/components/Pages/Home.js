@@ -90,7 +90,9 @@ function Home(props){
 
 
         <AuthenticatedTemplate>
+      
             <Container style={styles.fullBackground}>
+            
                 <Grid container > 
                   <Grid 
                 xl={10} xloffset={1}

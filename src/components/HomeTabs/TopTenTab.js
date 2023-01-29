@@ -26,7 +26,7 @@ export  const TopTenTab = (props) => {
                     <Grid container spacing={3}>
                         <Grid xs={2} sm={2} md={2} lg={2} xl={2}>
                             <div class="circleBase circle1">
-                                <h1>10</h1>
+                                <Typography variant="h1">10</Typography>
                             </div>
                         </Grid>
 
@@ -35,7 +35,7 @@ export  const TopTenTab = (props) => {
                         </Grid>
 
                         <Grid xs={3} sm={3} md={3} lg={3} xl={3}>
-                            <h1>76315</h1>
+                            <Typography variant="h1">76315</Typography>
                         </Grid>
 
                     </Grid>
