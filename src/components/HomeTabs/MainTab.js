@@ -22,18 +22,18 @@ import { Link } from "react-router-dom";
 export  const MainTab = (props) => {
 
     return (
-        <>
         <Container style={{}}>
             <Grid container spacing={3}>
            
             <Grid xs={12} sm={12} md={6} lg={6} xl={6} >
+                    
                     <Link to="/Solo-Start" >
-                        <button className="game-button game-button-top-buttons" >
+                        <div className="game-button game-button-top-buttons" >
                             <img src={trophyIcon} alt="trophyIcon" className="soloStartHeadImage"/>
                             <br />
                             <br />
-                            <Typography variant="h3" > SOLO Challenge  </Typography>
-                        </button>
+                            SOLO Challenge
+                        </div>
                     </Link>
                     
                
@@ -45,12 +45,12 @@ export  const MainTab = (props) => {
                     
                     
                     <Link to="/Peer-Start" >
-                        <button className="game-button game-button-top-buttons">
+                        <div className="game-button game-button-top-buttons">
                             <img src={score2Img} alt="trophyIcon" className="soloStartHeadImage"/>
                             <br />
                             <br />
-                            <Typography variant="h3" > PEER Challenge  </Typography>
-                        </button>
+                            PEER Challenge
+                        </div>
                     </Link>
 
                 </Grid>
@@ -66,16 +66,25 @@ export  const MainTab = (props) => {
                             </Grid>
 
                             <Grid xl={8} lg={8} md={8} sm={12} xs={12} textAlign="center"  >
-                                <br />
-                                <Typography variant="h5" >
-                                    Your points:
-                                </Typography>
-                                <br />
-                                <Typography variant="h1">
-                                    78563 
-                                </Typography>
-                                points
-                                <br />
+
+                            <Box>
+                                <Grid container>
+                                    <Grid xl={12} lg={12} md={12} sm={12} xs={12} >
+                                    <br />
+                                        Your points:
+                                    </Grid>
+
+                                    <Grid xl={12} lg={12} md={12} sm={12} xs={12} >
+                                        <br />
+
+                                        <span style={{fontSize: "100px"}}>
+                                        78563 
+                                        </span>&nbsp; points
+                                    </Grid>
+                                </Grid>
+                            </Box>
+
+                               
                             </Grid>
                         </Grid>
                     </Box>
@@ -88,23 +97,37 @@ export  const MainTab = (props) => {
 
 
                 <Grid xs={12}>
-                <button className="game-button red">
-                    SOLO Points
-                    <br />
-                    <PersonIcon fontSize="large" />
-                </button>
-                <button className="game-button red">
-                    PEER Points
-                    <br />
-                    <GroupIcon fontSize='large' />
+                    <Box>
+                        <Grid container>
+                            <Grid xl={4} lg={4} md={4} sm={4} xs={4}>
+                                <div className="soloPointHeader">
+                                    <Typography variant="h5">SOLO Points</Typography>
+                                </div>
+                                <div className="soloPointBody">
+                                    <PersonIcon fontSize="large" />
+                                </div>
+                            </Grid>
 
-                </button>
-                <button className="game-button red">
-                    SQUAD Points
-                    <br />
-                    <Diversity3Icon fontSize="large" />
+                            <Grid xl={4} lg={4} md={4} sm={4} xs={4}>
+                                <div className="soloPointHeader">
+                                    <Typography variant="h5">PEER Points</Typography>
+                                </div>
+                                <div className="soloPointBody">
+                                    <GroupIcon fontSize='large' />
+                                </div>
+                            </Grid>
 
-                </button>
+                            <Grid xl={4} lg={4} md={4} sm={4} xs={4}>
+                                <div className="soloPointHeader">
+                                    <Typography variant="h5">SQUAD Points</Typography>
+                                </div>
+                                <div className="soloPointBody">
+                                    <Diversity3Icon fontSize="large" />
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                 
                     
                 </Grid>
 
@@ -118,6 +141,5 @@ export  const MainTab = (props) => {
         
 
 
-        </>
     );
 };

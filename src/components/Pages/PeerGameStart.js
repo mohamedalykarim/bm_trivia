@@ -28,7 +28,7 @@ const styles = {
 
 function PeerGameStart(props){
 
-    return <Container style={styles.fullBackground}>
+    return <Container >
     <Grid container spacing={1} > 
 
       {/* Page title */}
@@ -80,18 +80,14 @@ function PeerGameStart(props){
       <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
          <Link to="/" >
             <button className="game-button red soloStartHead" >
-               <Typography variant="h3">
-               &nbsp; <span className="soloChallengeTitle">Cancel</span>
-               </Typography>
+               <span className="soloChallengeTitle">Cancel</span>
             </button> 
          </Link>
       </Grid>
 
       <Grid className="textAlignCentered" xs={12} sm={12} md={6} lg={6} xl={6}>
       <button className="game-button red soloStartHead" >
-          <Typography variant="h3">
-          &nbsp; <span className="soloChallengeTitle">Start Game</span>
-          </Typography>
+          <span className="soloChallengeTitle">Start Game</span>
        </button> 
 
       </Grid>

@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "sp-rest-proxy": "^3.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -29,7 +30,6 @@
     "eject": "react-scripts eject",
     "proxy": "node ./api-server.js",
     "startServers": "concurrently --kill-others \"npm run proxy\" \"npm run start\""
-
   },
   "eslintConfig": {
     "extends": [
@@ -50,9 +50,7 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^7.6.0",
-    "sp-rest-proxy": "^3.3.5"
+    "concurrently": "^7.6.0"
   },
   "proxy": "http://localhost:8081"
-
 }

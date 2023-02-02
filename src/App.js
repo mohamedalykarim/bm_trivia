@@ -6,8 +6,9 @@ import Home from './components/Pages/Home'
 import SoloGameStart from './components/Pages/SoloGameStart'
 import PeerGameStart from './components/Pages/PeerGameStart'
 
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-
+import { AuthenticatedTemplate, UnauthenticatedTemplate  } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { msalConfig } from "./authConfig";
 
 import  {  LoginToMicrosoft } from './components/authentication/LoginToMicrosoft'
 
@@ -16,22 +17,47 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import SoloGameQuiz from './components/Pages/SoloGameQuiz';
 
-// fetch(`/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia')/items`, {  
-//   method: "POST",
-//   headers: {             
-//     "accept": "application/json;odata=verbose",
-//     "content-type": "application/json;odata=verbose",
-//   },
-//   accept: 'application/json;odata=verbose',
-//   body: JSON.stringify({ '__metadata': { 'type': 'SP.List' }, 'AllowContentTypes': true,
-//   'BaseTemplate': 100, 'ContentTypesEnabled': true, 'Description': 'My list description', 'QuestionText': 'Test from app' }
-//  )
-// })
-// .then((result)=>{
-//   console.log(result)
-// })
-// .catch(console.log);
+
+var data = []
+
+const publicClientApplication = new PublicClientApplication(msalConfig);
+const account = publicClientApplication.getAllAccounts()[0];
+const accessTokenRequest = {
+  scopes: ["user.read"],
+  account: account,
+};
+
+// Use the same publicClientApplication instance provided to MsalProvider
+publicClientApplication
+  .acquireTokenSilent(accessTokenRequest)
+  .then(function (accessTokenResponse) {
+    // Acquire token silent success
+    const accessToken = accessTokenResponse.accessToken;
+
+    console.log("accessToken : "+accessToken);
+    
+      fetch(`/_api/Web/currentUser`, {  
+        method: "GET",
+        headers: {             
+          "accept": "application/json;odata=verbose",
+          "content-type": "application/json;odata=verbose",
+        },        
+        accept: 'application/json;odata=verbose',
+      })
+      .then((response) => response.json())
+
+      .then((results)=>{
+        data['name'] = results.d.Title
+        data['email'] = results.d.Email;
+      })
+      .catch(console.log);
+  })
+  .catch(function (error) {
+    //Acquire token silent failure
+    console.log(error);
+  });
 
 
 
@@ -67,6 +93,7 @@ function App() {
                  <Routes>
                   <Route exact path='/' element={< Home />}></Route>
                   <Route exact path='/Solo-Start' element={< SoloGameStart />}></Route>
+                  <Route exact path='/Solo-Quiz' element={< SoloGameQuiz />}></Route>
                   <Route exact path='/Peer-Start' element={< PeerGameStart />}></Route>
                 </Routes>
 

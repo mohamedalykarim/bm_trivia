@@ -3,6 +3,7 @@ import '../../assets/styles/custom.css';
 
 
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+
 import  {  LoginToMicrosoft } from '../authentication/LoginToMicrosoft'
 
 
@@ -19,11 +20,10 @@ import Box from '@mui/material/Box';
 import HomeIcon from '@mui/icons-material/Home';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarsIcon from '@mui/icons-material/Stars';
-import { MainTab, TopTen } from "../HomeTabs/MainTab";
+import { MainTab } from "../HomeTabs/MainTab";
 
 import bgImage from '../../assets/img/background.jpg'
 import { TopTenTab } from "../HomeTabs/TopTenTab";
-
 
 const styles = {
     fullBackground : {
@@ -49,7 +49,7 @@ const styles = {
       >
         {value === index && (
           <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+              {children}          
           </Box>
         )}
       </div>
@@ -91,7 +91,7 @@ function Home(props){
 
         <AuthenticatedTemplate>
       
-            <Container style={styles.fullBackground}>
+            <Container >
             
                 <Grid container > 
                   <Grid 

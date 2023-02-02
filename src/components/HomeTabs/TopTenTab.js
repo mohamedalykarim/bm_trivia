@@ -25,13 +25,13 @@ export  const TopTenTab = (props) => {
                   <div className="TopTenItem">
                     <Grid container spacing={3}>
                         <Grid xs={2} sm={2} md={2} lg={2} xl={2}>
-                            <div class="circleBase circle1">
+                            <div className="circleBase circle1">
                                 <Typography variant="h1">10</Typography>
                             </div>
                         </Grid>
 
                         <Grid xs={7} sm={7} md={7} lg={7} xl={7}>
-                            <h3>Mohamed Ahmed ALi Mohamed</h3>
+                            <Typography variant="h3">Mohamed Ahmed ALi Mohamed</Typography>
                         </Grid>
 
                         <Grid xs={3} sm={3} md={3} lg={3} xl={3}>

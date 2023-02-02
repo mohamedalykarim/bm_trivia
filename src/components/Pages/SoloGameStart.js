@@ -14,6 +14,14 @@ import { Link } from "react-router-dom";
 
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography } from "@mui/material";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 
 const styles = {
@@ -26,10 +34,26 @@ const styles = {
     }
   }
 
+
 function SoloGameReact(props){
 
-    return <Container style={styles.fullBackground}>
+   const [open, setOpen] = React.useState(false);
+   const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const handleClickOpen = () => {
+   setOpen(true);
+   };
+
+  const handleClose = () => {
+   setOpen(false);
+   };
+
+
+    return <Container >
+    <br />
     <Grid container spacing={3} > 
+    
 
       {/* Page title */}
       <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -79,20 +103,16 @@ function SoloGameReact(props){
 
       <Grid className="textAlignCentered" xs={6} sm={6} md={6} lg={6} xl={6}>
          <Link to="/" >
-            <button className="game-button red soloStartHead" >
-               <h3>
-               &nbsp; <span className="soloChallengeTitle">Cancel</span>
-               </h3>
-            </button> 
+            <div className="game-button red soloStartHead" >
+              <span className="soloChallengeTitle">Cancel</span>
+            </div> 
          </Link>
       </Grid>
 
       <Grid className="textAlignCentered" xs={6} sm={6} md={6} lg={6} xl={6}>
-      <button className="game-button red soloStartHead" >
-          <h3>
-          &nbsp; <span className="soloChallengeTitle">Start Game</span>
-          </h3>
-       </button> 
+         <button className="game-button red soloStartHead" onClick={handleClickOpen} >
+            &nbsp; <span className="soloChallengeTitle">Start Game</span>
+         </button> 
 
       </Grid>
 
@@ -100,6 +120,33 @@ function SoloGameReact(props){
 
 
     </Grid>
+
+
+    <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title" className="dialogTitle">
+          {"START SOLO CHALLENGE !"}
+        </DialogTitle>
+        <DialogContent >
+          <DialogContentText className="dialogBody">
+            DO YOU READY TO CHALLENGE YOURSELF AND ADVANCE YOUR KNOWLEDGE !!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button className="game-button red" autoFocus onClick={handleClose}>
+            CANCEL
+          </Button>
+          <Button className="game-button red" onClick={handleClose} autoFocus>
+            READY
+          </Button>
+          <br />
+        </DialogActions>
+      </Dialog>
+
 </Container>
 
 }
