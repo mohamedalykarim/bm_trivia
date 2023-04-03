@@ -393,16 +393,14 @@ function SoloGameQuiz(props){
 
     // handle next button 
     const handleNextButton = async(event)=>{
-        if(currentQuestionNumber === 20){
+        if(currentQuestionStatus === 19){
             setNextTitle("Finish the game")
-            const theGame = await getTheGame(gameId)
-            console.log(theGame);
-
-
-            const updateData = {
-                IsFinished : 1
-            }
-            updateTheGame(gameId, updateData)
+        }else if(currentQuestionNumber === 20){
+            const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond);
+            setIsPlayed(true)
+            setIsloading(false)
+            setResult(updatedProviousGame[0].Result)
+            const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
         }
         else if(currentQuestionStatus === "answered"){
             const questionNumber = currentQuestionNumber + 1
