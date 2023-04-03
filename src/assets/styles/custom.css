@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css?family=Carter+One');
+
+
+.soloStartHeadImage{
+  margin-top: 20px;
+  width: 90px;
+  
+}
+
+.soloStartHead{
+  background : linear-gradient(45deg, rgba(9,9,121,1) 0%, rgba(2,0,36,1) 100%);
+  width: 100% !important;
+  font-family: 'Carter One', sans-serif;
+  border: 3px dashed #ffffff;
+  color: #fff;
+  padding: 5px;
+  border-radius: 14px;
+}
+
+
+.soloRulesListItem li{
+  font-size: 15px;
+}
+
+.soloStartHead span{
+  margin-top: 20px;
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.TopTenItem{
+  width: 100%;
+  padding: 5px;
+  border: 2px dashed #fff;
+  background : linear-gradient(45deg, rgb(127, 127, 231) 0%, rgb(12, 6, 128) 100%);
+  border-radius: 14px;
+  font-family: 'Carter One', sans-serif;
+  color: #fff;
+}
+
+.TopTenItem{
+  width: 100%;
+  padding: 5px;
+  border: 2px dashed #fff;
+  background : linear-gradient(45deg, rgb(127, 127, 231) 0%, rgb(12, 6, 128) 100%);
+  border-radius: 14px;
+  font-family: 'Carter One', sans-serif;
+  color: #fff;
+}
+
+.TopTenItem h1{
+  margin-top: 13px;
+  vertical-align: center;
+}
+
+.circleBase {
+  border-radius: 50%;
+  color: rgb(12, 6, 128);
+}
+.circle1 {
+  width: 70px;
+  height: 70px;
+  background: #ffffff;
+
+  border: 1px solid rgb(12, 6, 128);
+}
+
+.TopTenItem h3{
+  margin-top: 20px;
+  vertical-align: center;
+}
+
+.TopTenItemImg{
+  left: 10px;
+  width: 75px;
+}
+
+.soloPointHeader{
+  background-color: #ff0052;
+  color:#ffffff
+}
+
+.soloPointBody{
+  padding: 5px;
+  background: linear-gradient(90deg, rgba(255,212,108,1) 0%, rgba(255,255,255,1) 50%, rgba(255,212,108,1) 100%);
+}
+
+.dialogTitle{
+  font-family: 'Carter One', sans-serif !important;
+
+}
+
+.dialogBody{
+  font-family: 'Carter One', sans-serif !important;
+
+}
+
+.choicesForm{
+  width:100%;
+}
+
+.choicesRadioGroup{
+  width: 100%;
+}
+
+.choiceGrid{
+  padding: 15px;
+
+}
+
+
+
+.choiceOptionRec{
+  width: 100%;
+  background: rgb(226, 226, 226);
+  border-radius: 10px;
+  border: solid rgb(5, 3, 128) 2px;
+  padding: 10px;
+}
+
+.choiceOptionRec:hover{
+  background-color: rgb(189, 189, 189);
+}
+
+.choiceOptionRecSelected{
+  width: 100%;
+  background: rgb(139, 139, 139);
+  color: rgb(3, 1, 75);
+  border-radius: 10px;
+  border: solid #330568 2px;
+  padding: 10px;
+}
+
+.choiceOptionRecCorrect{
+  width: 100%;
+  background: #1b8301;
+  color: #fff;
+  border-radius: 10px;
+  border: solid #0f4701 2px;
+  padding: 10px;
+}
+
+.choiceOptionRecWrong{
+  width: 100%;
+  background: #bd0000;
+  color: #fff;
+  border-radius: 10px;
+  border: solid #500101 2px;
+  padding: 10px;
+}
+
+
+@media only screen and (max-width: 887){
+  .TopTenItem h3{
+    margin-top: 0px;
+    vertical-align: center;
+  }
+
+  .soloPointHeader{
+    height: 64px;
+  }
+
+
+}

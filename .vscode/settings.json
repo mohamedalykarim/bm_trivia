@@ -1,0 +1,8 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ce7ec225-866a-4f62-ac66-16fafe4954e7/resourceGroups/Mohalim/providers/Microsoft.Web/sites/BMTrivia",
+    "appService.deploySubpath": ".",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
+}

@@ -1,0 +1,21 @@
+.pointsDiv{
+  width: 100%;
+}
+
+.scoreImg{
+  width: 200px;
+  margin-top: 10px;
+}
+
+.game-button-top-buttons{
+  width: 100%;
+}
+
+.game-button-bottom-buttons{
+  width: 30%;
+}
+
+.pointsText{
+  padding: 20px;
+  border: 5px solid rgba(16, 91, 146, 0.5)
+}
