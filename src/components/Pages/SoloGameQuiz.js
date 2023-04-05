@@ -433,7 +433,7 @@ function SoloGameQuiz(props){
     
    
    useEffect(()=>{
-    async function fetchData(email) {
+    async function fetchData(email, name) {
 
         // Check if the employee played a solo game today
             // if yes
@@ -468,62 +468,83 @@ function SoloGameQuiz(props){
                     setResult(proviousGameResults[0].Result)
                     const finishResult = updateTheGame(proviousGameResults[0].Id, {IsFinished: 1})
                 }else{
-                    // continue the game
-
-                    const questionsResults = await fetchQuestions()
 
 
-                    questionsResults.forEach(async result => {
-                        questions.push({
-                             QuestionText : result.Title,
-                             QuestionType : result.QuestionType,
-                             AnswerOne : result.AnswerOne,
-                             AnswerTwo : result.AnswerTwo,
-                             AnswerThree : result.AnswerThree,
-                             AnswerFour : result.AnswerFour,
-                             CorrectAnswer : result.CorrectAnswer
-                         })
-                     });
-        
-                     setQuestions(shuffle(questions))
-                     setQuestionTextUI(questions[proviousGameResults[0].CurrentQuestionNumber].QuestionText)
-                     setAnswerOneUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerOne)
-                     setAnswerTwoUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerTwo)
-                     setAnswerThreeUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerThree)
-                     setAnswerFourUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerFour)
-                     setCorrectAnswerUI(questions[proviousGameResults[0].CurrentQuestionNumber].CorrectAnswer)
-                     setCurrentQuestionNumber(proviousGameResults[0].CurrentQuestionNumber)
-                     setIsloading(false)
-
-
-
-
-                     var minute = getRemainingTime(proviousGameResults[0].StartTime);
-                     var sec = 0;                        
-        
-                     setInterval(async function() {
-                        setCurrentTime(getZeroAtStart(minute) + ":" + getZeroAtStart(sec))
                     
-                        if (sec < 1) {
-                          if (minute < 1 && sec < 1 ) {
+                    if (proviousGameResults[0].currentQuestionNumber > 20) {
+
+                        const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
+                        setIsPlayed(true)
+                        setIsloading(false)
+                        setResult(updatedProviousGame[0].Result)
+                        const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
+                        return
+                    }
+                    else{
+
+                        // continue the game
+                        const questionsResults = await fetchQuestions()
+
+
+                        questionsResults.forEach(async result => {
+                            questions.push({
+                                QuestionText : result.Title,
+                                QuestionType : result.QuestionType,
+                                AnswerOne : result.AnswerOne,
+                                AnswerTwo : result.AnswerTwo,
+                                AnswerThree : result.AnswerThree,
+                                AnswerFour : result.AnswerFour,
+                                CorrectAnswer : result.CorrectAnswer
+                            })
+                        });
+            
+                        setQuestions(shuffle(questions))
+                        setQuestionTextUI(questions[proviousGameResults[0].CurrentQuestionNumber].QuestionText)
+                        setAnswerOneUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerOne)
+                        setAnswerTwoUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerTwo)
+                        setAnswerThreeUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerThree)
+                        setAnswerFourUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerFour)
+                        setCorrectAnswerUI(questions[proviousGameResults[0].CurrentQuestionNumber].CorrectAnswer)
+                        setCurrentQuestionNumber(proviousGameResults[0].CurrentQuestionNumber)
+                        setIsloading(false)
+
+
+
+
+
+                        var minute = getRemainingTime(proviousGameResults[0].StartTime);
+                        var sec = 0;                        
+            
+                        setInterval(async function() {
                             setCurrentTime(getZeroAtStart(minute) + ":" + getZeroAtStart(sec))
-                            clearInterval()
-        
-                            const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
-                            setIsPlayed(true)
-                            setIsloading(false)
-                            setResult(updatedProviousGame[0].Result)
-                            const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
-        
-                          }
-                          else{
-                            minute--;
-                            sec = 59;
-                          }
-                        }else{
-                            sec--;
-                        }
-                      }, 1000);
+                        
+                            if (sec < 1) {
+                            if (minute < 1 && sec < 1 ) {
+                                setCurrentTime(getZeroAtStart(minute) + ":" + getZeroAtStart(sec))
+                                clearInterval()
+            
+                                const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
+                                setIsPlayed(true)
+                                setIsloading(false)
+                                setResult(updatedProviousGame[0].Result)
+                                const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
+            
+                            }
+                            else{
+                                minute--;
+                                sec = 59;
+                            }
+                            }else{
+                                sec--;
+                            }
+                        }, 1000);
+
+
+                    }
+                    
+                    
+                    
+                    
         
         
 
@@ -587,7 +608,7 @@ function SoloGameQuiz(props){
 
 
              const gameData = {
-                Title: email,
+                Title: name,
                 Type: "SOLO",
                 StartTime : new Date().getTime(),
                 Peer: "",
@@ -608,7 +629,7 @@ function SoloGameQuiz(props){
     }
 
     if(props.email !== null)
-    fetchData(props.email)
+    fetchData(props.email, props.name)
 
 
 
