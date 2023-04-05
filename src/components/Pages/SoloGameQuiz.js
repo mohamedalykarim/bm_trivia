@@ -9,6 +9,8 @@ import {connect} from 'react-redux'
 import { Container } from "@mui/system";
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -675,6 +677,12 @@ function SoloGameQuiz(props){
                         <Grid xs={12} sm={12} md={12} lg={12} xl={12} style={{textAlign:"center"}}>
                             <Typography variant="h4" >You are finished your SOLO game for today</Typography>
                             <Typography variant="h2" style={{fontWeight:"bolder"}}>Today, You collect : {result} Points</Typography>
+                            <br />
+                            <Link to="/">
+                                <Button className="game-button red"  autoFocus style={{width:"50%", height:"80px"}}>
+                                    Back to Main Page
+                                </Button>
+                            </Link>
                         </Grid>
 
                     </Grid>

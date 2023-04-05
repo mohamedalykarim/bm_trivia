@@ -34,7 +34,7 @@ function PeerGameStart(props){
       {/* Page title */}
       <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
        <div className="soloStartHead">
-          <Typography variant="h1" style={{width: "100%", }}>
+          <Typography variant="h3" style={{width: "100%", }}>
           <img src={score2Img} alt="trophyIcon" className="soloStartHeadImage"/>
           &nbsp; <span className="soloChallengeTitle">PEER CHALLENGE</span>
           </Typography>
@@ -46,7 +46,7 @@ function PeerGameStart(props){
        <div className="soloStartHead" >
           <img src={instructionsImg} alt="trophyIcon" className="soloStartHeadImage" style={{}}/>
 
-          <Typography variant="h1">
+          <Typography variant="h3">
           &nbsp; Instructions
           </Typography>
 
@@ -62,7 +62,7 @@ function PeerGameStart(props){
        <div className="soloStartHead" >
           <img src={rulesImg} alt="trophyIcon" className="soloStartHeadImage" />
 
-          <Typography variant="h1">
+          <Typography variant="h3">
           &nbsp; Game Rules
           </Typography>
 

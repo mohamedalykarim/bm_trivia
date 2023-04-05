@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../../assets/styles/custom.css';
 
 
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 
 import  {  LoginToMicrosoft } from '../authentication/LoginToMicrosoft'
+
 
 
 import { Container } from "@mui/material";
@@ -22,18 +23,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarsIcon from '@mui/icons-material/Stars';
 import { MainTab } from "../HomeTabs/MainTab";
 
-import bgImage from '../../assets/img/background.jpg'
 import { TopTenTab } from "../HomeTabs/TopTenTab";
-
-const styles = {
-    fullBackground : {
-      background: `url(${bgImage}) center center no-repeat`,
-      backgroundSize : "cover", 
-      WebkitBackgroundSize : "cover",
-      MozBackgroundSize : "cover",
-      minHeight: "100vh"
-    }
-  }
   
   
   function TabPanel(props) {
@@ -71,12 +61,13 @@ const styles = {
 
 
 function Home(props){
+    const [value, setValue] = useState(0);
 
-    const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-  
+
+   
   
 
     
@@ -116,7 +107,7 @@ function Home(props){
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <MainTab />
+                        <MainTab email={props.email} />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         <TopTenTab />

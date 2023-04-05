@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {getPoints} from '../helper/ApiHelper'
 
 
 import Grid from '@mui/material/Unstable_Grid2'
@@ -20,6 +21,21 @@ import { Link } from "react-router-dom";
 
 
 export  const MainTab = (props) => {
+    const [points, setPoints] = useState(0)
+
+
+    useEffect(()=>{
+
+        const fetchData = async()=>{
+         const points =  await getPoints(props.email)
+         setPoints(points)
+        }
+  
+        if(props.email !== null )
+        fetchData()
+        
+      },[props.email])
+    
 
     return (
         <Container style={{}}>
@@ -78,7 +94,7 @@ export  const MainTab = (props) => {
                                         <br />
 
                                         <span style={{fontSize: "100px"}}>
-                                        78563 
+                                        {points} 
                                         </span>&nbsp; points
                                     </Grid>
                                 </Grid>

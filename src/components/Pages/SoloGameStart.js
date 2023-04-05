@@ -48,7 +48,7 @@ function SoloGameReact(props){
       {/* Page title */}
       <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
        <div className="soloStartHead" style={{width: "100%", }}>
-          <Typography variant="h1" >
+          <Typography variant="h3" >
           <img src={trophyIcon} alt="trophyIcon" className="soloStartHeadImage"/>
           &nbsp; <span className="soloChallengeTitle">SOLO CHALLENGE</span>
           </Typography>
@@ -60,7 +60,7 @@ function SoloGameReact(props){
        <div className="soloStartHead" >
           <img src={instructionsImg} alt="trophyIcon" className="soloStartHeadImage" style={{}}/>
 
-          <Typography variant="h1" >
+          <Typography variant="h3" >
           &nbsp; Instructions
           </Typography>
 
@@ -76,7 +76,7 @@ function SoloGameReact(props){
        <div className="soloStartHead" >
           <img src={rulesImg} alt="trophyIcon" className="soloStartHeadImage" />
 
-          <Typography variant="h1">
+          <Typography variant="h3">
           &nbsp; Game Rules
           </Typography>
 

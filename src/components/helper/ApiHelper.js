@@ -113,7 +113,27 @@ export const updateGameResultAndCQuestion = async (gameId, currentQuestionNumber
 
             const updateResult = updateTheGame(gameId, updateResultData)
         }
+}
 
-        
+export const getPoints = async (email)=>{
+    var results = await axios.get(
+        `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items?$filter=(Email eq '${email}')`,
+        {},
+        {
+            'Accept': 'application/json;odata=verbose',
+            'Content-Type': 'application/json;odata=verbose',
+        }
+      )
+
+      var total = 0
+      const items = results.data.value
+
+      console.log(items);
+      items.forEach(result => {
+        total = total + result.Result
+      });
+  
+      return total
+  
 
 }

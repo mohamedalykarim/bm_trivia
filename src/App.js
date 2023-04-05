@@ -12,6 +12,7 @@ import { msalConfig } from "./authConfig";
 
 import  {  LoginToMicrosoft } from './components/authentication/LoginToMicrosoft'
 
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -61,15 +62,45 @@ function App(props) {
       console.log(error);
     });
 
+    const theme = createTheme({
+      typography: {
+        h1: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        h2: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        h3: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        h4: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        h5: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        h6: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        body1: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        },
+        body2: {
+          fontFamily: ['Carter One', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif',].join(',')
+        }
+      }
+    });
+    
+   
+
   return (
-        <Router>
+    <ThemeProvider theme={theme}>
+      <Router>
           <div className="App" >
-
-
             <div className='App-header'>
                   <AppBar position="static">
                     <Toolbar>
-                      <IconButton
+                      {/* <IconButton
                       size="large"
                       edge="start"
                       color="inherit"
@@ -77,9 +108,9 @@ function App(props) {
                       sx={{ mr: 2 }}
                       >
                         <MenuIcon />
-                      </IconButton>
+                      </IconButton> */}
                     
-                      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                      <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>
                         BM Quiz Trivia
                       </Typography>
 
@@ -90,7 +121,7 @@ function App(props) {
                  </AppBar>
 
                  <Routes>
-                  <Route exact path='/' element={< Home />}></Route>
+                  <Route exact path='/' element={< Home name={name} email={email} />}></Route>
                   <Route exact path='/Solo-Start' element={< SoloGameStart name={name} email={email} />}></Route>
                   <Route exact path='/Solo-Quiz' element={< SoloGameQuiz name={name} email={email} />} ></Route>
                   <Route exact path='/Peer-Start' element={< PeerGameStart name={name} email={email} />}></Route>
@@ -101,6 +132,8 @@ function App(props) {
           </div>
 
         </Router>
+
+    </ThemeProvider>
 
 
   );
