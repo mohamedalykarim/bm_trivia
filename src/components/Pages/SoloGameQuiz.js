@@ -3,6 +3,8 @@ import React, { useEffect,useState, useRef } from "react";
 import '../../assets/styles/custom.css';
 import '../../assets/styles/Buttons.css';
 
+import {connect} from 'react-redux'
+
 
 import { Container } from "@mui/system";
 import Grid from '@mui/material/Unstable_Grid2';
@@ -396,7 +398,7 @@ function SoloGameQuiz(props){
         if(currentQuestionStatus === 19){
             setNextTitle("Finish the game")
         }else if(currentQuestionNumber === 20){
-            const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond);
+            const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, props.email);
             setIsPlayed(true)
             setIsloading(false)
             setResult(updatedProviousGame[0].Result)
@@ -429,7 +431,7 @@ function SoloGameQuiz(props){
     
    
    useEffect(()=>{
-    async function fetchData() {
+    async function fetchData(email) {
 
         // Check if the employee played a solo game today
             // if yes
@@ -439,7 +441,7 @@ function SoloGameQuiz(props){
                 // if finished --> go to you are finished your game for today
             // if no keep foward and add one test to the database   
 
-        const proviousGameResults = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond);
+        const proviousGameResults = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
 
         // There is a game played today
         if(proviousGameResults.length > 0){
@@ -505,7 +507,7 @@ function SoloGameQuiz(props){
                             setCurrentTime(getZeroAtStart(minute) + ":" + getZeroAtStart(sec))
                             clearInterval()
         
-                            const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond);
+                            const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
                             setIsPlayed(true)
                             setIsloading(false)
                             setResult(updatedProviousGame[0].Result)
@@ -565,7 +567,7 @@ function SoloGameQuiz(props){
                     setCurrentTime(getZeroAtStart(minute) + ":" + getZeroAtStart(sec))
                     clearInterval()
 
-                    const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond);
+                    const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
                     setIsPlayed(true)
                     setIsloading(false)
                     setResult(updatedProviousGame[0].Result)
@@ -583,11 +585,11 @@ function SoloGameQuiz(props){
 
 
              const gameData = {
-                Title: "mohalim@banquemisr.com",
+                Title: email,
                 Type: "SOLO",
                 StartTime : new Date().getTime(),
                 Peer: "",
-                Email: "mohalim@banquemisr.com",
+                Email: email,
                 IsFinished: 0,
                 CurrentQuestionNumber: 1,
                 Result: 0
@@ -603,12 +605,12 @@ function SoloGameQuiz(props){
     
     }
 
-    fetchData()
+    if(props.email !== null)
+    fetchData(props.email)
 
 
 
-
-   }, [startDayTimeInMillisecond, endDayTimeInMillisecond, questions])
+   }, [startDayTimeInMillisecond, endDayTimeInMillisecond, questions, props.email])
     
 
     
@@ -885,11 +887,10 @@ function SoloGameQuiz(props){
               
 
     </Container>
-
-
-
     
 
 }
+
+
 
 export default SoloGameQuiz

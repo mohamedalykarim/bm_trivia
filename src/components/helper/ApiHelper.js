@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const fetchProviousGame = async(startDayTimeInMillisecond, endDayTimeInMillisecond) => {
+export const fetchProviousGame = async(startDayTimeInMillisecond, endDayTimeInMillisecond, email) => {
     const results = await axios.get(
-      `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items?$filter=((Email eq 'mohalim@banquemisr.com') and (Type eq 'SOLO') and (StartTime ge ${startDayTimeInMillisecond}) and (StartTime le ${endDayTimeInMillisecond}))`,
+      `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items?$filter=((Email eq '${email}') and (Type eq 'SOLO') and (StartTime ge ${startDayTimeInMillisecond}) and (StartTime le ${endDayTimeInMillisecond}))`,
       {},
       {
           'Accept': 'application/json;odata=verbose',
