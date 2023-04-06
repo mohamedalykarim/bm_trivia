@@ -128,7 +128,6 @@ export const getPoints = async (email)=>{
       var total = 0
       const items = results.data.value
 
-      console.log(items);
       items.forEach(result => {
         total = total + result.Result
       });
@@ -136,4 +135,42 @@ export const getPoints = async (email)=>{
       return total
   
 
+}
+
+
+export const getTop10 = async ()=>{
+    var results = await axios.get(
+        `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items`,
+        {},
+        {
+            'Accept': 'application/json;odata=verbose',
+            'Content-Type': 'application/json;odata=verbose',
+        }
+      )
+
+      var allResults = []
+      var finalResults = {}
+      const items = results.data.value
+
+      items.reduce((accumulator, { Email, Result }) => {
+        if(allResults[Email] === undefined || allResults[Email] === null){
+            allResults[Email] = []
+        }
+        allResults[Email].push(Result)
+        return Email
+      }, 0)
+
+
+      
+      Object.entries(allResults).forEach(([key, value]) => {
+        const sum = value.reduce((partialSum, a) => partialSum + a, 0);
+        finalResults = {
+            email : key,
+            result : sum
+        }
+      });      
+
+      console.log(finalResults);
+  
+      return allResults
 }
