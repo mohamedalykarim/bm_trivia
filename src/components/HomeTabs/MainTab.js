@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {getPoints} from '../helper/ApiHelper'
 
+import { loginRequest } from '../../authConfig';
+import { callMsGraph } from '../../graph';
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
+
 
 import Grid from '@mui/material/Unstable_Grid2'
 import Typography from '@mui/material/Typography';
@@ -21,20 +25,40 @@ import { Link } from "react-router-dom";
 
 
 export  const MainTab = (props) => {
-    const [points, setPoints] = useState(0)
+    const [points, setPoints] = useState(null)
+    const [name, setName] = useState(null)
+    const [email, setEmail] = useState(null)
+    const { instance, accounts } = useMsal();
+    const [graphData, setGraphData] = useState(null);
+
+
 
 
     useEffect(()=>{
 
-        const fetchData = async()=>{
-         const points =  await getPoints(props.email)
-         setPoints(points)
+        const fetchData = async(email)=>{
+        const result =  await getPoints(email)
+            setPoints(result)
         }
+
+
+        instance
+        .acquireTokenSilent({
+            ...loginRequest,
+            account: accounts[0],
+        })
+        .then((response) => {
+            callMsGraph(response.accessToken).then((response) => setGraphData(response));
+            fetchData(accounts[0].username)
+            setName(accounts[0].name)
+            console.log(accounts[0]);
+        });
   
-        if(props.email !== null )
-        fetchData()
+    
+
         
-      },[props.email])
+        
+    },[points])
     
 
     return (

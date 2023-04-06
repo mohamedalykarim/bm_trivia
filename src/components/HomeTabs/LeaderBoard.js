@@ -15,7 +15,7 @@ import loadingImg from '../../assets/img/loading-gif.gif'
 
 
 
-export  const TopTenTab = (props) => {
+export  const LeaderBoard = (props) => {
     const [topTen, setTopTen] = useState([])
     const [isLoading, setIsloading]= useState(true)
 
@@ -27,10 +27,11 @@ export  const TopTenTab = (props) => {
         }
 
 
+        if (topTen.length === 0)
         getData()
 
 
-    },[])
+    },[topTen])
 
     return (
         <>
@@ -104,6 +105,11 @@ export  const TopTenTab = (props) => {
         
         
         }
+
+
+
+        
+
 
 
 

@@ -1,4 +1,5 @@
-import axios from "axios";
+import { Title } from "@mui/icons-material";
+import axios, { all } from "axios";
 
 export const fetchProviousGame = async(startDayTimeInMillisecond, endDayTimeInMillisecond, email) => {
     const results = await axios.get(
@@ -100,7 +101,6 @@ export const updateGameResultAndCQuestion = async (gameId, currentQuestionNumber
                 Result : theGame.Result + 1
             }
 
-            console.log(updateResultData);
 
 
             const updateResult = updateTheGame(gameId, updateResultData)
@@ -148,29 +148,40 @@ export const getTop10 = async ()=>{
         }
       )
 
-      var allResults = []
+      var allResults = {}
       var finalResults = {}
       const items = results.data.value
 
-      items.reduce((accumulator, { Email, Result }) => {
-        if(allResults[Email] === undefined || allResults[Email] === null){
-            allResults[Email] = []
+      items.reduce((accumulator, { Title, Email, Result }) => {
+        if(allResults[Email] === undefined){
+            allResults[Email] = {}
         }
-        allResults[Email].push(Result)
-        return Email
+
+        if(allResults[Email]["Result"] === undefined){
+            allResults[Email]["Result"] = 0
+        }
+
+        allResults = {
+            ...allResults,
+            [Email] : {
+                Name: Title,
+                Email: Email,
+                Result: Result + allResults[Email].Result
+            }
+        }
+        
+        return 0
       }, 0)
-
-
       
+      const sorted = []
       Object.entries(allResults).forEach(([key, value]) => {
-        const sum = value.reduce((partialSum, a) => partialSum + a, 0);
-        finalResults = {
-            email : key,
-            result : sum
-        }
-      });      
+        sorted.push([value.Email, value.Name, value.Result])
+      });
 
-      console.log(finalResults);
+
+      sorted.sort(function(a, b) {
+        return b[2] - a[2];
+      });  
   
-      return allResults
+      return sorted
 }

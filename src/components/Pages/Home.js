@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../../assets/styles/custom.css';
 
 
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 import  {  LoginToMicrosoft } from '../authentication/LoginToMicrosoft'
 
 
@@ -24,6 +23,7 @@ import StarsIcon from '@mui/icons-material/Stars';
 import { MainTab } from "../HomeTabs/MainTab";
 
 import { TopTenTab } from "../HomeTabs/TopTenTab";
+import { LeaderBoard } from "../HomeTabs/LeaderBoard";
   
   
   function TabPanel(props) {
@@ -67,11 +67,20 @@ function Home(props){
       setValue(newValue);
     };
 
+
+    useEffect(()=>{
+
+        
+      
+      
+    }, [])
+
    
   
 
     
     return <Box sx={{ flexGrow: 1 }}>
+
     
         <UnauthenticatedTemplate >
                 <div className="full-height-vh" >
@@ -107,13 +116,13 @@ function Home(props){
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <MainTab email={props.email} />
+                        <MainTab />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         <TopTenTab />
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        Item Three
+                        <LeaderBoard />
                     </TabPanel>
                     </Box>
 
