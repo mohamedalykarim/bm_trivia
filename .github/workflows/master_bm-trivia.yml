@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'BM-Trivia'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3346FB68515E459E9CF83DA555CB2089 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE60D74FA64C471EB929D0DC2AF3B93C }}
           package: .
