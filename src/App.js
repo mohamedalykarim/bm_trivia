@@ -32,17 +32,20 @@ function App(props) {
 
 
 
-  // instance
-  // .acquireTokenSilent({
-  //     ...loginRequest,
-  //     account: accounts[0],
-  // })
-  // .then((response) => {
-  //     callMsGraph(response.accessToken).then((response) => setGraphData(response));
-  //     setEmail(accounts[0].username)
-  //     setName(accounts[0].name)
-  // });
+  useEffect(()=>{
+    instance
+    .acquireTokenSilent({
+        ...loginRequest,
+        account: accounts[0],
+    })
+    .then((response) => {
+        callMsGraph(response.accessToken).then((response) => setGraphData(response));
+        setEmail(accounts[0].username)
+        setName(accounts[0].name)
+    });
 
+
+  }, [])
 
 
 

@@ -435,6 +435,8 @@ function SoloGameQuiz(props){
    useEffect(()=>{
     async function fetchData(email, name) {
 
+
+
         // Check if the employee played a solo game today
             // if yes
                 // if not finished check it start time
@@ -444,6 +446,7 @@ function SoloGameQuiz(props){
             // if no keep foward and add one test to the database   
 
         const proviousGameResults = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
+
 
         // There is a game played today
         if(proviousGameResults.length > 0){
@@ -628,6 +631,10 @@ function SoloGameQuiz(props){
     
     }
 
+
+    console.log("test", props.email);
+
+
     if(props.email !== null)
     fetchData(props.email, props.name)
 
@@ -638,7 +645,6 @@ function SoloGameQuiz(props){
 
     
     return <Container >
-
         <Grid container spacing={0}>
             <Grid className="textAlignCentered" xs={12} sm={12} md={12} lg={12} xl={12}>
 
