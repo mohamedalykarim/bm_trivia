@@ -29,13 +29,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "serve": "concurrently --kill-others \"npm run proxy\" \"npm run startMain\"",
-    "start": "concurrently --kill-others \"npm run proxy\" \"npm run startMain\"",
-    "startMain": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "proxy": "node ./api-server.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -54,13 +51,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "concurrently": "^7.6.0",
-    "webpack-dev-server": "^4.13.1"
-  },
-  "options": {
-    "allowedHosts": ["localhost", ".localhost"],
-    "proxy": "https://localhost:3005/"
   }
 }

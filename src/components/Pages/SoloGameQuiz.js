@@ -29,7 +29,7 @@ import {
     getTheGame,
     insertTheGame,
     updateGameResultAndCQuestion,
-    updateTheGame
+    finishTheGame
 } from '../helper/ApiHelper'
 
 import { shuffle, getZeroAtStart, getRemainingTime } from '../helper/FunctionHelper'
@@ -74,8 +74,9 @@ function SoloGameQuiz(props){
 
     const [currentQuestionStatus, setCurrentQuestionStatus] = useState("")
 
-    const [alertOpen, setAlertOpen] = React.useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
     const [alertImage, setAlertImg] = useState(null);
+    const [alertText, setAlertText] = useState("")
 
     const [AnswerResults, setAnswerResults] = useState({
         "Question1" : null,
@@ -164,14 +165,14 @@ function SoloGameQuiz(props){
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : true
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber, true)
+                        updateGameResultAndCQuestion(gameId, true)
                     }else{
                         setAnswerOneClassName("choiceOptionRecWrong")
                         setAnswerResults({
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : false
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber)
+                        updateGameResultAndCQuestion(gameId)
 
                     }
 
@@ -181,8 +182,11 @@ function SoloGameQuiz(props){
                     if(event.target.value === correctAnswerUI){
                         setAnswerOneClassName("choiceOptionRecCorrect")
                         setAlertImg(awesomeImg)
+                        setAlertText("Woohoo !")
                     }else{
                         setAlertImg(goodLuckImg)
+                        setAlertText("Sorry, try again !")
+
                         setAnswerOneClassName("choiceOptionRecWrong")
                         if(correctAnswerUI === answerTwoUI){
                             setAnswerTwoClassName("choiceOptionRecCorrect")
@@ -223,14 +227,14 @@ function SoloGameQuiz(props){
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : true
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber, true)
+                        updateGameResultAndCQuestion(gameId, true)
                     }else{
                         setAnswerTwoClassName("choiceOptionRecWrong")
                         setAnswerResults({
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : false
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber)
+                        updateGameResultAndCQuestion(gameId)
 
                     }
 
@@ -240,9 +244,13 @@ function SoloGameQuiz(props){
                     if(event.target.value === correctAnswerUI){
                         setAnswerTwoClassName("choiceOptionRecCorrect")
                         setAlertImg(awesomeImg)
+                        setAlertText("Woohoo !")
+
 
                     }else{
                         setAlertImg(goodLuckImg)
+                        setAlertText("Sorry, try again !")
+
 
                         setAnswerTwoClassName("choiceOptionRecWrong")
                         if(correctAnswerUI === answerOneUI){
@@ -287,14 +295,14 @@ function SoloGameQuiz(props){
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : true
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber, true)
+                        updateGameResultAndCQuestion(gameId, true)
                     }else{
                         setAnswerThreeClassName("choiceOptionRecWrong")
                         setAnswerResults({
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : false
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber, false)
+                        updateGameResultAndCQuestion(gameId, false)
                     }
 
                 }else if (countDownTimer === motionMiddle){
@@ -303,9 +311,13 @@ function SoloGameQuiz(props){
                     if(event.target.value === correctAnswerUI){
                         setAnswerThreeClassName("choiceOptionRecCorrect")
                         setAlertImg(awesomeImg)
+                        setAlertText("Woohoo !")
+
 
                     }else{
                         setAlertImg(goodLuckImg)
+                        setAlertText("Sorry, try again !")
+
 
                         setAnswerThreeClassName("choiceOptionRecWrong")
                         if(correctAnswerUI === answerOneUI){
@@ -345,14 +357,14 @@ function SoloGameQuiz(props){
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : true
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber, true)
+                        updateGameResultAndCQuestion(gameId, true)
                     }else{
                         setAnswerFourClassName("choiceOptionRecWrong")
                         setAnswerResults({
                             ...AnswerResults,
                             ["Question"+currentQuestionNumber] : false
                         })
-                        updateGameResultAndCQuestion(gameId, currentQuestionNumber)
+                        updateGameResultAndCQuestion(gameId)
 
                     }
 
@@ -362,9 +374,13 @@ function SoloGameQuiz(props){
                     if(event.target.value === correctAnswerUI){
                         setAnswerFourClassName("choiceOptionRecCorrect")
                         setAlertImg(awesomeImg)
+                        setAlertText("Woohoo !")
+
 
                     }else{
                         setAlertImg(goodLuckImg)
+                        setAlertText("Sorry, try again !")
+
 
                         setAnswerFourClassName("choiceOptionRecWrong")
                         if(correctAnswerUI === answerOneUI){
@@ -397,26 +413,32 @@ function SoloGameQuiz(props){
 
     // handle next button 
     const handleNextButton = async(event)=>{
-        if(currentQuestionStatus === 19){
+        if(currentQuestionNumber === 19){
             setNextTitle("Finish the game")
-        }else if(currentQuestionNumber === 20){
+        }
+        
+        
+        if(currentQuestionNumber === 20){
             const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, props.email);
             setIsPlayed(true)
             setIsloading(false)
-            setResult(updatedProviousGame[0].Result)
-            const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
+            setResult(updatedProviousGame.data[0].result)
+            const finishResult = finishTheGame(updatedProviousGame.data[0].id)
         }
         else if(currentQuestionStatus === "answered"){
             const questionNumber = currentQuestionNumber + 1
             setCurrentQuestionNumber(questionNumber)
             const index = questionNumber - 1
-            setQuestionTextUI(questions[index].QuestionText)
-            setAnswerOneUI(questions[index].AnswerOne)
-            setAnswerTwoUI(questions[index].AnswerTwo)
-            setAnswerThreeUI(questions[index].AnswerThree)
-            setAnswerFourUI(questions[index].AnswerFour)
-            setCorrectAnswerUI(questions[index].CorrectAnswer)
+            setQuestionTextUI(questions[index].question_text)
+            setAnswerOneUI(questions[index].answer_one)
+            setAnswerTwoUI(questions[index].answer_two)
+            setAnswerThreeUI(questions[index].answer_three)
+            setAnswerFourUI(questions[index].answer_four)
+            setCorrectAnswerUI(questions[index].correct_answer)
             setChosenValue(null)
+
+            console.log("set correct answer", questions[index].correct_answer);
+            console.log("set correct answer", currentQuestionNumber);
 
             setAnswerOneClassName("choiceOptionRec")
             setAnswerTwoClassName("choiceOptionRec")
@@ -445,77 +467,78 @@ function SoloGameQuiz(props){
                 // if finished --> go to you are finished your game for today
             // if no keep foward and add one test to the database   
 
-        const proviousGameResults = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
+        const results = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
+        const proviousGameResults = results.data
 
 
         // There is a game played today
         if(proviousGameResults.length > 0){
-            setGameId(proviousGameResults[0].Id)
+            setGameId(proviousGameResults[0].id)
 
-            if(proviousGameResults[0].IsFinished > 0){
+
+            if(proviousGameResults[0].is_finished > 0){
                 // the game is finished 
                 setIsPlayed(true)
                 setIsloading(false)
-                setResult(proviousGameResults[0].Result)
-                const finishResult = updateTheGame(proviousGameResults[0].Id, {IsFinished: 1})
+                setResult(proviousGameResults[0].result)
+                const finishResult = finishTheGame(proviousGameResults[0].id)
             }else{
                 // the game is not finished
                 const now = new Date().getTime();
-                const timePassed = ( now - proviousGameResults[0].StartTime ) / 1000 / 60
+                const timePassed = ( now - proviousGameResults[0].start_time ) / 1000 / 60
             
-                console.log("Time Passed : "+ timePassed);
                 if (timePassed > 8){
                     // finish the game
                     setIsPlayed(true)
                     setIsloading(false)
-                    setResult(proviousGameResults[0].Result)
-                    const finishResult = updateTheGame(proviousGameResults[0].Id, {IsFinished: 1})
+                    setResult(proviousGameResults[0].result)
+                    const finishResult = finishTheGame(proviousGameResults[0].id)
                 }else{
-
-
                     
-                    if (proviousGameResults[0].currentQuestionNumber > 20) {
+                    if (proviousGameResults[0].current_question_number > 20) {
 
                         const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
                         setIsPlayed(true)
                         setIsloading(false)
-                        setResult(updatedProviousGame[0].Result)
-                        const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
+                        setResult(updatedProviousGame.data[0].result)
+                        // TODO
+                        const finishResult = finishTheGame(proviousGameResults[0].id)
                         return
                     }
                     else{
 
                         // continue the game
                         const questionsResults = await fetchQuestions()
+                        
 
-
-                        questionsResults.forEach(async result => {
+                        questionsResults.data.forEach(async result => {
                             questions.push({
-                                QuestionText : result.Title,
-                                QuestionType : result.QuestionType,
-                                AnswerOne : result.AnswerOne,
-                                AnswerTwo : result.AnswerTwo,
-                                AnswerThree : result.AnswerThree,
-                                AnswerFour : result.AnswerFour,
-                                CorrectAnswer : result.CorrectAnswer
+                                question_text : result.question_text,
+                                question_type : result.question_type,
+                                answer_one : result.answer_one,
+                                answer_two : result.answer_two,
+                                answer_three : result.answer_three,
+                                answer_four : result.answer_four,
+                                correct_answer : result.correct_answer
                             })
                         });
+                        
             
                         setQuestions(shuffle(questions))
-                        setQuestionTextUI(questions[proviousGameResults[0].CurrentQuestionNumber].QuestionText)
-                        setAnswerOneUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerOne)
-                        setAnswerTwoUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerTwo)
-                        setAnswerThreeUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerThree)
-                        setAnswerFourUI(questions[proviousGameResults[0].CurrentQuestionNumber].AnswerFour)
-                        setCorrectAnswerUI(questions[proviousGameResults[0].CurrentQuestionNumber].CorrectAnswer)
-                        setCurrentQuestionNumber(proviousGameResults[0].CurrentQuestionNumber)
+                        setQuestionTextUI(questions[proviousGameResults[0].current_question_number-1].question_text)
+                        setAnswerOneUI(questions[proviousGameResults[0].current_question_number-1].answer_one)
+                        setAnswerTwoUI(questions[proviousGameResults[0].current_question_number-1].answer_two)
+                        setAnswerThreeUI(questions[proviousGameResults[0].current_question_number-1].answer_three)
+                        setAnswerFourUI(questions[proviousGameResults[0].current_question_number-1].answer_four)
+                        setCorrectAnswerUI(questions[proviousGameResults[0].current_question_number-1].correct_answer)
+                        setCurrentQuestionNumber(proviousGameResults[0].current_question_number)
                         setIsloading(false)
 
 
 
 
 
-                        var minute = getRemainingTime(proviousGameResults[0].StartTime);
+                        var minute = getRemainingTime(proviousGameResults[0].start_time);
                         var sec = 0;                        
             
                         setInterval(async function() {
@@ -529,8 +552,8 @@ function SoloGameQuiz(props){
                                 const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
                                 setIsPlayed(true)
                                 setIsloading(false)
-                                setResult(updatedProviousGame[0].Result)
-                                const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
+                                setResult(updatedProviousGame[0].result)
+                                const finishResult = finishTheGame(proviousGameResults[0].id)
             
                             }
                             else{
@@ -558,28 +581,30 @@ function SoloGameQuiz(props){
         // There is no game played today
         else{
 
-            const questionsResults = await fetchQuestions()
+            const results = await fetchQuestions()
+            const questionsResults = results.data
 
+            
 
             questionsResults.forEach(async result => {
                 questions.push({
-                     QuestionText : result.Title,
-                     QuestionType : result.QuestionType,
-                     AnswerOne : result.AnswerOne,
-                     AnswerTwo : result.AnswerTwo,
-                     AnswerThree : result.AnswerThree,
-                     AnswerFour : result.AnswerFour,
-                     CorrectAnswer : result.CorrectAnswer
+                    question_text : result.question_text,
+                    question_type : result.question_type,
+                    answer_one : result.answer_one,
+                    answer_two : result.answer_two,
+                    answer_three : result.answer_three,
+                    answer_four : result.answer_four,
+                    correct_answer : result.correct_answer
                  })
              });
 
              setQuestions(shuffle(questions))
-             setQuestionTextUI(questions[0].QuestionText)
-             setAnswerOneUI(questions[0].AnswerOne)
-             setAnswerTwoUI(questions[0].AnswerTwo)
-             setAnswerThreeUI(questions[0].AnswerThree)
-             setAnswerFourUI(questions[0].AnswerFour)
-             setCorrectAnswerUI(questions[0].CorrectAnswer)
+             setQuestionTextUI(questions[0].question_text)
+             setAnswerOneUI(questions[0].answer_one)
+             setAnswerTwoUI(questions[0].answer_two)
+             setAnswerThreeUI(questions[0].answer_three)
+             setAnswerFourUI(questions[0].answer_four)
+             setCorrectAnswerUI(questions[0].correct_answer)
              setIsloading(false)
 
              var minute = 10;
@@ -596,8 +621,8 @@ function SoloGameQuiz(props){
                     const updatedProviousGame = await fetchProviousGame(startDayTimeInMillisecond, endDayTimeInMillisecond, email);
                     setIsPlayed(true)
                     setIsloading(false)
-                    setResult(updatedProviousGame[0].Result)
-                    const finishResult = updateTheGame(updatedProviousGame[0].Id, {IsFinished: 1})
+                    setResult(updatedProviousGame[0].result)
+                    const finishResult = finishTheGame(updatedProviousGame[0].id)
 
                   }
                   else{
@@ -611,19 +636,19 @@ function SoloGameQuiz(props){
 
 
              const gameData = {
-                Title: name,
-                Type: "SOLO",
-                StartTime : new Date().getTime(),
-                Peer: "",
-                Email: email,
-                IsFinished: 0,
-                CurrentQuestionNumber: 1,
-                Result: 0
+                name: name,
+                game_type: "SOLO",
+                start_time : new Date().getTime(),
+                email: email,
+                peer_name : "",
+                peer_email : "",
+                is_finished: 0,
+                current_question_number: 1,
+                result: 0
             }
     
-            const gameInsertionResult = await insertTheGame(gameData)
-
-            setGameId(gameInsertionResult.Id)
+            const insertionResults = await insertTheGame(gameData)
+            setGameId(insertionResults.data.insertId)
 
         }
 
@@ -632,7 +657,6 @@ function SoloGameQuiz(props){
     }
 
 
-    console.log("test", props.email);
 
 
     if(props.email !== null)
@@ -703,7 +727,7 @@ function SoloGameQuiz(props){
                     <Grid container spacing={.5} >
                         <Grid xs={12} sm={12} md={12} lg={12} xl={12} style={{textAlign:"center"}}>
                             <Typography variant="h4" >You are finished your SOLO game for today</Typography>
-                            <Typography variant="h2" style={{fontWeight:"bolder"}}>Today, You collect : {result} Points</Typography>
+                            <Typography variant="h2" style={{fontWeight:"bolder"}}>You collect : {result} Points</Typography>
                             <br />
                             <Link to="/">
                                 <Button className="game-button red"  autoFocus style={{width:"50%", height:"80px"}}>
@@ -901,7 +925,7 @@ function SoloGameQuiz(props){
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-        Woohoo !
+        {alertText}
         </DialogTitle>
         <DialogContent>
             <div style={{width:"100%", padding:"10px", textAlign:"center"}}>

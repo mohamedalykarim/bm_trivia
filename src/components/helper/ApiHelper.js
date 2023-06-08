@@ -1,23 +1,30 @@
 import { Title } from "@mui/icons-material";
 import axios, { all } from "axios";
 
+const BASE_URL = "http://localhost:3005"
+
 export const fetchProviousGame = async(startDayTimeInMillisecond, endDayTimeInMillisecond, email) => {
-    const results = await axios.get(
-      `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items?$filter=((Email eq '${email}') and (Type eq 'SOLO') and (StartTime ge ${startDayTimeInMillisecond}) and (StartTime le ${endDayTimeInMillisecond}))`,
-      {},
+    console.log("start fetchProviousGame");
+    const results = await axios.post(
+      `${BASE_URL}/games/old-games`,
+      {
+        email: email,
+        startDayTimeInMillisecond: startDayTimeInMillisecond,
+        endDayTimeInMillisecond: endDayTimeInMillisecond
+      },
       {
           'Accept': 'application/json;odata=verbose',
           'Content-Type': 'application/json;odata=verbose',
       }
     )
 
-    return results.data.value
+    return results.data
 }
 
 export const getTheGame = async(gameId) => {
     const results = await axios.get(
-      `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items(${gameId})`,
-      {},
+        `${BASE_URL}/games/${gameId}`,
+        {},
       {
           'Accept': 'application/json;odata=verbose',
           'Content-Type': 'application/json;odata=verbose',
@@ -30,7 +37,7 @@ export const getTheGame = async(gameId) => {
 
 export const fetchQuestions = async ()=>{
     const results = await axios.get(
-        `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Questions')/items`,
+        `${BASE_URL}/questions/`,
         {},
         {
             'Accept': 'application/json;odata=verbose',
@@ -39,21 +46,14 @@ export const fetchQuestions = async ()=>{
 
     )
     
-    return(results.data.value)
+    return(results.data)
 
 }
 
 export const insertTheGame = async(data) => {    
 
-    data = {
-        ...data,
-        __metadata: {
-            type: "SP.Data.BM_x005f_Trivia_x005f_GamesListItem"
-        }
-    }
-
     const results = await axios.post(
-        `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items`,
+        `${BASE_URL}/games/`,
         data,
         {
             headers : {
@@ -64,26 +64,18 @@ export const insertTheGame = async(data) => {
 
     )
 
-    return results.data.d
+    return results.data
 }
 
-export const updateTheGame = async(gameId, data) => {   
+export const finishTheGame = async(gameId) => {   
     
-    data = {
-        ...data,
-        "__metadata": {
-            "type": "SP.Data.BM_x005f_Trivia_x005f_GamesListItem"
-        }
-    }
     const results = axios.post(
-        `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items(${gameId})`,
-        data,
+        `${BASE_URL}/games/finish/${gameId}`,
+        {  },
         {
             headers :{
                 'Accept': 'application/json;odata=verbose',
                 'Content-Type': 'application/json;odata=verbose',
-                'If-Match': "*",
-                'X-HTTP-Method': "MERGE"
             }
 
         }
@@ -92,47 +84,65 @@ export const updateTheGame = async(gameId, data) => {
     return results
 }
 
-export const updateGameResultAndCQuestion = async (gameId, currentQuestionNumber, increase = false)=>{
+
+export const addOnePointToResult = async(gameId) => {   
+    
+    const results = axios.post(
+        `${BASE_URL}/games/add-point-to-result/${gameId}`,
+        {},
+        {
+            headers :{
+                'Accept': 'application/json;odata=verbose',
+                'Content-Type': 'application/json;odata=verbose',
+            }
+
+        }
+
+    )
+    return results
+}
+
+export const addOneNumberToCurrentQuestion = async(gameId) => {   
+    
+    const results = axios.post(
+        `${BASE_URL}/games/add-to-current-question/${gameId}`,
+        {},
+        {
+            headers :{
+                'Accept': 'application/json;odata=verbose',
+                'Content-Type': 'application/json;odata=verbose',
+            }
+
+        }
+
+    )
+    return results
+}
+
+
+
+export const updateGameResultAndCQuestion = async (gameId, increase = false)=>{
         if(increase){
-            const theGame = await getTheGame(gameId)
-
-            const updateResultData = {
-                CurrentQuestionNumber : currentQuestionNumber +1,
-                Result : theGame.Result + 1
-            }
-
-
-
-            const updateResult = updateTheGame(gameId, updateResultData)
-
-
+            await addOneNumberToCurrentQuestion(gameId)
+            await addOnePointToResult(gameId)
         }else{
-            const updateResultData = {
-                CurrentQuestionNumber : currentQuestionNumber +1,
-            }
+            await addOneNumberToCurrentQuestion(gameId)
 
-            const updateResult = updateTheGame(gameId, updateResultData)
         }
 }
 
 export const getPoints = async (email)=>{
     var results = await axios.get(
-        `/sites/CultureCoreChampions/_api/lists/GetByTitle('BM_Trivia_Games')/items?$filter=(Email eq '${email}')`,
+        `${BASE_URL}/games/points/${email}`,
         {},
         {
             'Accept': 'application/json;odata=verbose',
             'Content-Type': 'application/json;odata=verbose',
         }
       )
-
-      var total = 0
-      const items = results.data.value
-
-      items.forEach(result => {
-        total = total + result.Result
-      });
   
-      return total
+  
+      return results.data
   
 
 }

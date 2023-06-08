@@ -37,8 +37,10 @@ export  const MainTab = (props) => {
     useEffect(()=>{
 
         const fetchData = async(email)=>{
-        const result =  await getPoints(email)
-            setPoints(result)
+        const finalResults =  await getPoints(email)
+
+
+            setPoints(finalResults.data.result)
         }
 
 
@@ -51,7 +53,6 @@ export  const MainTab = (props) => {
             callMsGraph(response.accessToken).then((response) => setGraphData(response));
             fetchData(accounts[0].username)
             setName(accounts[0].name)
-            console.log(accounts[0]);
         });
   
     
@@ -118,7 +119,7 @@ export  const MainTab = (props) => {
                                         <br />
 
                                         <span style={{fontSize: "100px"}}>
-                                        {points} 
+                                        {points ? points : 0 } 
                                         </span>&nbsp; points
                                     </Grid>
                                 </Grid>
